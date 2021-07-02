@@ -383,6 +383,7 @@ p {
 /* Testimoials */
 #testimonials {
   background-color: var(--color-light-white);
+  justify-content: center;
 }
 
 .testimonials {
@@ -392,6 +393,7 @@ p {
 .testimonial {
   display: flex;
   margin: 32px 0;
+  justify-content: center;
 }
 
 .testimonial__avatar {
@@ -419,4 +421,30 @@ p {
 
 .testimonial__speech-bubble a {
   color: var(--color-pink);
+}
+
+/* contact */
+#contact {
+  background-color: var(--color-pink);
+}
+
+.contact__title,
+.contact__email,
+.contact__rights {
+  color: var(--color-white);
+}
+
+.contact__title {
+  margin: 32px 0;
+}
+
+.contact__links {
+  font-size: var(--font-large);
+  margin: 24px 0px;
+}
+
+.contact__links i:hover {
+  transform: scale(1.1);
+  color: var(--color-yellow);
+  transition: var(--animation-duration);
 }
