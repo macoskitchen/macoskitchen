@@ -95,3 +95,30 @@ function scrollIntoView(selector) {
     const scrollTo = document.querySelector(selector);
     scrollTo.scrollIntoView({behavior: "smooth"});
 }
+
+const sectionId = [
+  '#home', 
+  '#about', 
+  '#skills', 
+  '#work', 
+  'testimonials', 
+  '#contact'
+];
+const sections = sectionIds.map(id => document.querySelector(id));
+const navItems = sectionIds.map(id =>
+  document.querySelector(`[data-link="${id}"]`)
+);
+
+const observerOptions = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.3,
+}
+
+const observerCallback = (entries, observer) => {
+  entries.forEach(entry => {
+    console.log(entry.target);
+  });
+};
+const observer = new IntersectionObserver(observerCallback, observerOptions);
+sections. forEach(section => observer.observe(section));
