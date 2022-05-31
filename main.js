@@ -1,44 +1,41 @@
-'use strict'
+'use strict';
 
 // Make navbar transparent when it is on the top
 const navbar = document.querySelector('#navbar');
 const navbarHeight = navbar.getBoundingClientRect().height;
 document.addEventListener('scroll', () => {
-    console.log(window.scrollY);
-    console.log(`navbarHeight: ${navbarHeight}`);
-    if (window.scrollY > navbarHeight) {
-        navbar.classList.add('navbar--dark');
-    } else {
-        navbar.classList.remove('navbar--dark');
-    }
+  if (window.scrollY > navbarHeight) {
+    navbar.classList.add('navbar--dark');
+  } else {
+    navbar.classList.remove('navbar--dark');
+  }
 });
 
-// handle scrolling when tapping on the navbar menu
+// Handle scrolling when tapping on the navbar menu
 const navbarMenu = document.querySelector('.navbar__menu');
-navbarMenu.addEventListener('click',(event) => {
-    const target = event.target;
-    const link = target.dataset.link;
-    if (link == null) {
-        return;
-    }
-    navbarMenu.classList.remove('open');
-    scrollIntoView(link);
+navbarMenu.addEventListener('click', (event) => {
+  const target = event.target;
+  const link = target.dataset.link;
+  if (link == null) {
+    return;
+  }
+  navbarMenu.classList.remove('open');
+  scrollIntoView(link);
 });
 
-//Navbar toggle button for small screen
+// Navbar toggle button for small screen
 const navbarToggleBtn = document.querySelector('.navbar__toggle-btn');
-navbarToggleBtn.addEventListener('click', () =>  {
+navbarToggleBtn.addEventListener('click', () => {
   navbarMenu.classList.toggle('open');
 });
 
-
-// hadle click on "contact me" button on home
+// Handle click on "contact me" button on home
 const homeContactBtn = document.querySelector('.home__contact');
 homeContactBtn.addEventListener('click', () => {
-    scrollIntoView('#contact');
+  scrollIntoView('#contact');
 });
 
-// Make home slowy fade to transparent as the window scrolls down
+// Make home slowly fade to transparent as the window scrolls down
 const home = document.querySelector('.home__container');
 const homeHeight = home.getBoundingClientRect().height;
 document.addEventListener('scroll', () => {
@@ -48,34 +45,34 @@ document.addEventListener('scroll', () => {
 // Show "arrow up" button when scrolling down
 const arrowUp = document.querySelector('.arrow-up');
 document.addEventListener('scroll', () => {
-  if(window.scrollY > homeHeight / 2 ) {
+  if (window.scrollY > homeHeight / 2) {
     arrowUp.classList.add('visible');
   } else {
     arrowUp.classList.remove('visible');
   }
 });
 
-// handle click on the "arrow up" button
+// Handle click on the "arrow up" button
 arrowUp.addEventListener('click', () => {
   scrollIntoView('#home');
 });
 
-// projects
+// Projects
 const workBtnContainer = document.querySelector('.work__categories');
 const projectContainer = document.querySelector('.work__projects');
 const projects = document.querySelectorAll('.project');
 workBtnContainer.addEventListener('click', (e) => {
   const filter = e.target.dataset.filter || e.target.parentNode.dataset.filter;
-  if(filter == null) {
+  if (filter == null) {
     return;
   }
 
-  //Remove selection from the previous item and select the new one
-  const active = document.querySelector('.category__btn.selected')
-  active.classList.remove('selected');
-  const target = 
-    e.target.nodeName === 'BUTTON' ? e.target : e.target.parentNode;
-  target.classList.add('selected');
+  // Remove selection from the previous item and select the new one
+  const active = document.querySelector('.category__btn.selected');
+  if (active != null) {
+    active.classList.remove('selected');
+  }
+  e.target.classList.add('selected');
 
   projectContainer.classList.add('anim-out');
   setTimeout(() => {
@@ -88,37 +85,10 @@ workBtnContainer.addEventListener('click', (e) => {
       }
     });
     projectContainer.classList.remove('anim-out');
-  }, 300)
-}); 
+  }, 300);
+});
 
 function scrollIntoView(selector) {
-    const scrollTo = document.querySelector(selector);
-    scrollTo.scrollIntoView({behavior: "smooth"});
+  const scrollTo = document.querySelector(selector);
+  scrollTo.scrollIntoView({ behavior: 'smooth' });
 }
-
-const sectionId = [
-  '#home', 
-  '#about', 
-  '#skills', 
-  '#work', 
-  'testimonials', 
-  '#contact'
-];
-const sections = sectionIds.map(id => document.querySelector(id));
-const navItems = sectionIds.map(id =>
-  document.querySelector(`[data-link="${id}"]`)
-);
-
-const observerOptions = {
-  root: null,
-  rootMargin: '0px',
-  threshold: 0.3,
-}
-
-const observerCallback = (entries, observer) => {
-  entries.forEach(entry => {
-    console.log(entry.target);
-  });
-};
-const observer = new IntersectionObserver(observerCallback, observerOptions);
-sections. forEach(section => observer.observe(section));
